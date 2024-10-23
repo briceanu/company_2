@@ -6,15 +6,15 @@ import sys
 #  G 500 P 300
 def sign_up():
     url = 'http://127.0.0.1:8000/api/driver/sign_up'   
-    data = {"username":'marian',
-            'password':'alwdi2LLL23',
-            'confirm_password':'alwdi2LLL23',
-            'email':'marian@gmail.com',
+    data = {"username":'costica',
+            'password':'ion12AAwad',
+            'confirm_password':'ion12AAwad',
+            'email':'cotica@gmail.com',
         }
 
     # users
     # costica ion12oLo
-    # costica new password ==> ion12AA
+    # costica new password ==> ion12AAwad
     # gigi ak471989  is a superuser
     #  marian alwdi2LLL23
 
@@ -26,7 +26,7 @@ def sign_up():
 
 def get_drivers():
     url = 'http://127.0.0.1:8000/api/driver/list'    
-    headers = {'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzI5NDQwMzExLCJpYXQiOjE3Mjk0MzY3MTEsImp0aSI6ImE4MjM2NTRiYzRiNTQ3NTg4YTI4OGJiM2IwYWZjM2I4IiwidXNlcm5hbWUiOiJnaWdpIn0.jKujV4BruDdUFtDTsJ6rVa8LGMN-TH62B-ViQzEC11Q'}
+    headers = {'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzI5NzA1OTI5LCJpYXQiOjE3Mjk3MDIzMjksImp0aSI6IjA3ZWE2NTExMTUzYTQ3NzA4YTg3N2U1ODY1OTQ4NTMwIiwidXNlcm5hbWUiOiJnaWdpIn0.X3FPj3JCwR8mZ8hvoI3H-X9gmx-FQrS0kUZ9w4Tnu84'}
 
     save = requests.get(url=url,headers=headers)
     print(save.status_code)
@@ -37,7 +37,11 @@ def get_drivers():
 def sign_in():
     url = 'http://127.0.0.1:8000/api/driver/sign_in'     
 
-    data = {'username':'costica','password':'ion12oLo'}
+    # data = {'username':'marian','password':'alwdi2LLL23'}
+    # data = {'username':'costica','password':'ion12AAwad'}
+
+    
+    data = {'username':'gigi','password':'ak471989'}
 
     res = requests.post(url=url,data=data)
     print(res.status_code)
@@ -47,8 +51,8 @@ def sign_in():
 
 def remove_driver():
     url = 'http://127.0.0.1:8000/api/driver/remove_driver'    
-    headers = {'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzI5NDI5MTQ0LCJpYXQiOjE3Mjk0Mjg4NDQsImp0aSI6IjNiNzhmMzIwZWY5NjQxZTdhMzRhZjE4NzRkNjYzYTkyIiwidXNlcm5hbWUiOiJnaWdpIn0.-scYA5Z9DPOvE_J-gb29P6YgpiRfXCa4VYzRP1_ZHrY'}
-    data = {'username':'gina'}
+    headers = {'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzI5NTQ0NDYyLCJpYXQiOjE3Mjk1NDA4NjIsImp0aSI6IjkzYTI2ZDIzMGNmYTQ0NzFhYTI3ZGYzOGY5NTgzMzViIiwidXNlcm5hbWUiOiJnaWdpIn0.cTZTJKV-ep6b9_79837YS67pVSleX3l27xYrxtnZ1k8'}
+    data = {'username':'costica'}
     save = requests.delete(url=url,headers=headers,data=data)
     print(save.status_code)
     print(save.url)
@@ -88,6 +92,17 @@ def update_password():
 
 
 
+def get_driver_by_name():
+    url = f'http://127.0.0.1:8000/api/driver/get_driver_name?name={sys.argv[2]}'    
+    save = requests.get(url=url)
+    print(save.status_code)
+    print(save.url)
+    print(save.text)
+
+
+
+
+
 
 if __name__ == '__main__':
 
@@ -105,7 +120,8 @@ if __name__ == '__main__':
         sign_out()
     elif sys.argv[1] == 'update_password':
         update_password()
-    
+    elif sys.argv[1] == 'get_driver':
+        get_driver_by_name()
 
     else:
         exit()

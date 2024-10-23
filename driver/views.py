@@ -9,7 +9,9 @@ from rest_framework.mixins import UpdateModelMixin
 from rest_framework.generics import GenericAPIView
 from .permissions import IsAuthenticatedAndUser
 from django.contrib.auth.hashers import make_password
-
+from rest_framework.decorators import action
+from rest_framework.viewsets import ModelViewSet
+from django.shortcuts import get_object_or_404
 
 
 class Sign_up(ViewSet): 
@@ -46,7 +48,7 @@ class Remove_driver(ViewSet):
             raise NotFound(detail=f'no driver with the username {user} found')
 
 
-
+# upadating the password
 class Update_password(GenericAPIView,UpdateModelMixin):
     permission_classes = [IsAuthenticatedAndUser]
     
@@ -78,4 +80,17 @@ class Update_password(GenericAPIView,UpdateModelMixin):
         return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
 
 
- 
+# getting a driver without using authentication
+class GetDriverName(ViewSet):
+    def retrieve (self,request):
+        name = self.request.query_params.get('name')
+        if name is None :
+            return Response({'error':'no name provided'},status=status.HTTP_400_BAD_REQUEST)
+    
+        try:
+            driver = Driver.objects.get(username__iexact=name)
+        except Driver.DoesNotExist:
+            raise NotFound(detail=f'no driver with the name {name} found')
+        
+        serializer = DriverSerializer(driver)
+        return Response(serializer.data,status=status.HTTP_200_OK)
