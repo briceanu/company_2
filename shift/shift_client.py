@@ -86,6 +86,14 @@ def total_payment():
     print(save.text)
 
 
+def total_hours():
+    url = 'http://127.0.0.1:8000/api/shift/total_hours'    
+
+    save = requests.get(url=url)
+    print(save.status_code)
+    print(save.url)
+    print(save.text)
+
 
 
 if __name__ == '__main__':
@@ -102,6 +110,8 @@ if __name__ == '__main__':
         total_payment()
     if sys.argv[1] == 'weight_distance':
         weight_distance()
+    if sys.argv[1] == 'total_hours':
+        total_hours()
     else:
         exit()
 

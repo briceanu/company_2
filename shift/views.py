@@ -96,3 +96,21 @@ class TotalPayment(GenericAPIView):
 
 
         return Response({'total_payment': total_payment}, status=status.HTTP_200_OK)
+
+
+
+
+class TotalHoursWorkedByDriver(GenericAPIView):
+    def get(self, request, *args, **kwargs):
+        shifts = Shift.objects.values('driver_id').annotate(total_hours=Sum('hours_worked'))
+        # annotate() method is used to add an aggregate value to each dictionary returned by values().
+        if not shifts:
+            raise NotFound(detail='No shifts found')
+
+        data = []
+        for shift in shifts:
+            data.append({
+                'driver_id': shift['driver_id'],  
+                'total_hours': shift['total_hours'] or 0,  
+            })
+        return Response(data, status=status.HTTP_200_OK)
