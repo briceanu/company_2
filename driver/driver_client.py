@@ -37,11 +37,11 @@ def get_drivers():
 def sign_in():
     url = 'http://127.0.0.1:8000/api/driver/sign_in'     
 
-    # data = {'username':'marian','password':'alwdi2LLL23'}
+    data = {'username':'marian','password':'alwdi2LLL23'}
     # data = {'username':'costica','password':'ion12AAwad'}
 
     
-    data = {'username':'gigi','password':'ak471989'}
+    # data = {'username':'gigi','password':'ak471989'}
 
     res = requests.post(url=url,data=data)
     print(res.status_code)

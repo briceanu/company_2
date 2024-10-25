@@ -9,9 +9,6 @@ from rest_framework.mixins import UpdateModelMixin
 from rest_framework.generics import GenericAPIView
 from .permissions import IsAuthenticatedAndUser
 from django.contrib.auth.hashers import make_password
-from rest_framework.decorators import action
-from rest_framework.viewsets import ModelViewSet
-from django.shortcuts import get_object_or_404
 
 
 class Sign_up(ViewSet): 
